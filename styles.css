@@ -1,0 +1,53 @@
+*{
+    overflow: hidden;
+
+}
+.Container{
+    width: 100vw;
+    height: 100vh;
+    background-color: aqua;
+
+}
+.hor{
+
+    padding-top: 10px;
+    padding: auto;
+    margin: auto;
+    margin-right: 30px;
+    border-radius: 8px;
+    width: 97vw;
+    height: 25vh;
+}
+.ta{
+    margin-bottom: 10px;
+    width: 99%;
+    height: 45%;
+    border-radius: 8px;
+    border: solid 1px  gray;
+    background-color:gainsboro ;
+}
+.title{
+    text-align: center;
+
+}
+.list{
+    
+    width: 97vw;
+    height: 73vh;
+    margin-left: 11px;
+    
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.l{border-radius: 8px;
+    
+    border: solid 1px gray;
+    background-color: gainsboro;
+    width: 47.5vw;
+    height: 95%;
+    margin: auto;
+    overflow-y: scroll;
+
+}
+
