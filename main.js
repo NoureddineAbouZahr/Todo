@@ -7,6 +7,7 @@ class TodoItem {
         this.title = data.title;
         this.description = data.description;
         this.timestamp = data.timestamp;
+        this.priority = data.priority;
 
         this.id = genertateId(500);
         
@@ -29,7 +30,7 @@ class TodoItem {
         <li>
         <!-- Top -->
         <div>
-            <h2>${this.title}</h2>
+            <h2>${this.title} ( ${this.priority} )</h2>
             <div class="btns">
                 <svg xmlns="http://www.w3.org/2000/svg" height="48" width="48"><path d="M24 45Q19.55 45 15.7 43.375Q11.85 41.75 9.05 38.95Q6.25 36.15 4.625 32.3Q3 28.45 3 24Q3 19.5 4.625 15.7Q6.25 11.9 9.05 9.05Q11.85 6.2 15.7 4.575Q19.55 2.95 24 2.95Q28.5 2.95 32.3 4.575Q36.1 6.2 38.95 9.05Q41.8 11.9 43.425 15.7Q45.05 19.5 45.05 24Q45.05 28.45 43.425 32.3Q41.8 36.15 38.95 38.95Q36.1 41.75 32.3 43.375Q28.5 45 24 45ZM21 33.7 35.5 19.2 32.3 15.95 21 27.25 15.5 21.75 12.3 25Z"/></svg>
                 <svg xmlns="http://www.w3.org/2000/svg" height="48" width="48"><path d="M12.75 43Q10.8 43 9.45 41.675Q8.1 40.35 8.1 38.4V10.95H5.25V6.4H16.6V4.05H31.4V6.4H42.8V10.95H39.95V38.4Q39.95 40.35 38.575 41.675Q37.2 43 35.3 43ZM17.85 34.55H21.55V14.7H17.85ZM26.5 34.55H30.25V14.7H26.5Z"/></svg>
@@ -43,12 +44,33 @@ class TodoItem {
         </div>
         </li>`
         this.node = $(html);
+        let scope = this;
+
+        let btns = this.node.find('svg');
+        
+        $(btns[0]).bind('click', function (e) {
+            scope.isDone = !scope.isDone;
+        });
+        $(btns[1]).bind('click', function (e) {
+            scope.delete();
+        });
+        $(btns[2]).bind('click', function (e) {
+            open()
+        });
+        
 
         if (this.isDone) {
             $(`#doneList .todos`).append(this.node);
         } else {
             $(`#taskList .todos`).append(this.node);
         }
+    }
+    delete(){
+        let i = TodoItem.all.findIndex(e => e.id == this.id);
+        TodoItem.all.splice(i,1);
+        this.node.remove();
+        
+        delete this;
     }
 }
 
@@ -72,10 +94,6 @@ function confirm() {
         alert('Description is required!')
         return;
     }
-    if (date.val() == '') {
-        alert('Date is required!')
-        return;
-    }
 
     new TodoItem(getData()).show();
 
@@ -96,7 +114,8 @@ function getData() {
     return {
         title: title.val(),
         description: desc.val(),
-        timestamp: date.val()
+        timestamp: date.val() || Date(),
+        priority: pr.val()
     }
 }
 
