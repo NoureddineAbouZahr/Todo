@@ -37,6 +37,40 @@
 
         </div>
     </div>
+    
+    <div class="addTodoContainer">
+        <div class="add_todo_popup">
+            <h2>Add Todo
+            </h2>
+            <table>
+                <tr>
+                    <td>Title: </td>
+                    <td><input type="text"></td>
+                </tr>
+                <tr>
+                    <td>Description: </td>
+                    <td><textarea cols="30"></textarea></td>
+                </tr>
+             
+                <tr>
+                    <td>Timestamp: </td>
+                    <td><input type="datetime-local"></td>
+                </tr>   
+                <tr>
+                    <td>Priority: </td>
+                    <td>
+                        <input id="pr" type="range"min="1" max="5" value="3" oninput="prText.innerText = this.value">
+                        <label id="prText">3</label>
+                    </td>
+                </tr>
+                
+            </table>
+            <div style="width: 100%;height: fit-content;display: flex;flex-direction: row;justify-content: flex-end;">
+                <button id="cancel">Cancel</button>
+                <button id="confirm">Confirm</button>
+            </div>
+        </div>
+    </div>
 
     <script src="./main.js"></script>
 </body>

@@ -2,9 +2,11 @@
     overflow: hidden;
 
 }
+body {
+    font-family: sans-serif;
+}
 .Container{
     width: 100vw;
-    font-family: sans-serif;
     height: 100vh;
     background-color: rgb(208, 227, 227);
 
@@ -131,4 +133,62 @@ code {
     padding-left: 10px;
     background: rgb(10, 202, 220);
     border-bottom: 1px solid gray;
+}
+.appear{
+    display: none;
+}
+.addTodoContainer {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.1);
+}
+.add_todo_popup {
+    background-color: white;
+    width:fit-content;
+    padding: 10px;
+    left: 50%;
+    top: 50%;
+    position: relative;
+    transform: translate(-50%,-50%);
+    border-radius: 8px;
+    box-shadow:0 0px 15px rgba(0, 0, 0, 0.5);
+}
+.add_todo_popup input,textarea{
+    border: 2px solid rgb(28, 25, 230);
+    transition: border 200ms;
+    min-width: 300px;
+    max-width: 300px;
+}
+textarea {
+    min-height: 50px;
+    max-height: 150px;
+    overflow-y: auto;
+}
+td {
+    user-select: none;
+    vertical-align:top;
+}
+.add_todo_popup input:focus,textarea:focus{
+    border: 2px solid rgb(150, 149, 235);
+    transition: border 200ms;
+    outline: none;
+}
+.add_todo_popup button {
+    background-color: rgb(28, 25, 230);
+    border:none;
+    padding: 10px 20px;
+    color: aliceblue;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-right: 5px;
+    transition: padding 200ms, background-color 200ms;
+}
+.add_todo_popup button:hover{
+    padding: 12.5px 22.5px;
+    background-color: rgb(150, 149, 235);
+    transition: 200ms;
+    color: rgb(45, 45, 45);
+    
 }

@@ -51,6 +51,27 @@ class TodoItem {
         }
     }
 }
+function open() {
+    
+}
+function confirm() {
+    
+}
+function cancel() {
+    
+}
+$("#cancel").bind('click', function (e) {
+    cancel();
+});
+$("#confirm").bind('click', function (e) {
+    confirm();
+});
+$(document).bind('keypress', function (e) {
+    if(e.originalEvent.key=='Enter'){
+        confirm();
+    }
+    
+});
 
 new TodoItem({
     title: "Web design",
