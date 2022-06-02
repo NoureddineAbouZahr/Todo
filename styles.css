@@ -106,14 +106,29 @@ i:hover{
 }
 svg{
     fill: rgb(73, 76, 78);
-    transform: scale(70%);
+    transform: scale(50%);
 }
+
 .todos {
-    padding-inline-start: 0px;
-
+    padding-inline-start: 0px; /* Remove default margin */
 }
-.todos li{
+.todos li > div {
+    width: calc(100% - 20px);
+    display: flex;
+    flex-direction: row;
+}
+.btns {
+    width: fit-content;
+    margin-left: auto;
+}
+code {
+    margin-top: auto;
+    margin-left: auto;
+}
 
+.todos li{
     width: 100%;
+    padding-left: 10px;
     background: rgb(10, 202, 220);
+    border-bottom: 1px solid gray;
 }
