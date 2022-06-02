@@ -3,6 +3,8 @@ function genertateId(m) {
 }
 class TodoItem {
     static all = [];
+    static active;
+
     constructor(data){
         this.title = data.title;
         this.description = data.description;
@@ -55,9 +57,10 @@ class TodoItem {
             scope.delete();
         });
         $(btns[2]).bind('click', function (e) {
-            open()
+            TodoItem.active = scope;
+            behavior = 1;
+            open();
         });
-        
 
         if (this.isDone) {
             $(`#doneList .todos`).append(this.node);
@@ -72,6 +75,12 @@ class TodoItem {
         
         delete this;
     }
+    set(data){
+        this.title = data.title;
+        this.description = data.description;
+        this.timestamp = data.timestamp;
+        this.priority = data.priority;
+    }
 }
 
 var title=$('#title');
@@ -79,12 +88,15 @@ var desc=$('#desc');
 var pr= $('#pr');
 var date=$('#date');
 
+function updateAll() {
+    
+}
 
 function open() {
     empty();
     $('.addTodoContainer').addClass("show");
-    
 }
+let behavior = 0;
 function confirm() {
     if (title.val() == '') {
         alert('Title is required!')
@@ -95,7 +107,13 @@ function confirm() {
         return;
     }
 
-    new TodoItem(getData()).show();
+    if (behavior == 0) {
+        new TodoItem(getData());
+    } else {
+        TodoItem.active.set(getData());
+        behavior = 0;
+    }
+    updateAll();
 
     empty();
 }
