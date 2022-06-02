@@ -52,9 +52,11 @@ class TodoItem {
         
         $(btns[0]).bind('click', function (e) {
             scope.isDone = !scope.isDone;
+            updateAll();
         });
         $(btns[1]).bind('click', function (e) {
             scope.delete();
+            updateAll();
         });
         $(btns[2]).bind('click', function (e) {
             TodoItem.active = scope;
@@ -80,6 +82,22 @@ class TodoItem {
         this.description = data.description;
         this.timestamp = data.timestamp;
         this.priority = data.priority;
+        if (data.id !== undefined) {
+            this.id = data.id;
+        }
+        if (data.isDone !== undefined) {
+            this.isDone = data.isDone;
+        }
+    }
+    toJSON(){
+        return {
+            title: this.title,
+            description: this.description,
+            timestamp: this.timestamp,
+            priority: this.priority,
+            id: this.id,
+            isDone: this.isDone
+        }
     }
 }
 
@@ -89,10 +107,43 @@ var pr= $('#pr');
 var date=$('#date');
 
 function updateAll() {
-    
+    $('.todos').empty();
+    if ($("#sort").val() == 'pr') {
+        TodoItem.all = TodoItem.all.sort(function(a,b) {
+            return b.priority - a.priority;
+        })  
+    }
+
+    for (let i = 0; i < TodoItem.all.length; i++) {
+        const item = TodoItem.all[i];
+        item.show();
+    }
+    save();
 }
+function save(){
+    let allTodos = TodoItem.all.map(e => e.toJSON());
+    localStorage.setItem('all', JSON.stringify(allTodos));
+}
+function load() {
+    if (localStorage.getItem('all')) {
+        let allTodos = JSON.parse(localStorage.getItem('all'));
+        for (let i = 0; i < allTodos.length; i++) {
+            const todo = allTodos[i];
+            new TodoItem(todo).set(todo);
+        }     
+    }
+    updateAll();
+}
+$(function() {
+    load();
+})
 
 function open() {
+    if (behavior == 0) {
+        $("#t").text("Add Todo")
+    } else {
+        $("#t").text("Edit Todo")
+    }
     empty();
     $('.addTodoContainer').addClass("show");
 }
@@ -148,6 +199,12 @@ $("#confirm").bind('click', function (e) {
     confirm();
 });
 $(document).bind('keypress', function (e) {
+    if (e.originalEvent.shiftKey == true) {
+        return;
+    }
+    if (!$('.show').length) {
+        return;
+    }
     if(e.originalEvent.key=='Enter'){
         confirm();
     }

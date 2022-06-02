@@ -131,7 +131,7 @@ code {
 .todos li{
     width: 100%;
     padding-left: 10px;
-    background: rgb(10, 202, 220);
+    background: rgb(149, 220, 226);
     border-bottom: 1px solid gray;
 }
 .appear{
@@ -197,3 +197,8 @@ td {
     color: rgb(45, 45, 45);
     
 }
+#doneList li{
+    background-color: rgb(107, 116, 107);
+    color:aliceblue
+}
+svg:hover{fill: grey;}
