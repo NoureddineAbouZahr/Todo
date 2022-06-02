@@ -51,15 +51,59 @@ class TodoItem {
         }
     }
 }
+
+var title=$('#title');
+var desc=$('#desc');
+var pr= $('#pr');
+var date=$('#date');
+
+
 function open() {
+    empty();
+    $('.addTodoContainer').addClass("show");
     
 }
 function confirm() {
-    
+    if (title.val() == '') {
+        alert('Title is required!')
+        return;
+    }
+    if (desc.val() == '') {
+        alert('Description is required!')
+        return;
+    }
+    if (date.val() == '') {
+        alert('Date is required!')
+        return;
+    }
+
+    new TodoItem(getData()).show();
+
+    empty();
 }
 function cancel() {
+    empty();
+}
+function empty() {
+    $('.addTodoContainer').removeClass("show");
+    title.val('');
+    desc.val('');
+    pr.val('3');
+    date.val(Date());
     
 }
+function getData() {
+    return {
+        title: title.val(),
+        description: desc.val(),
+        timestamp: date.val()
+    }
+}
+
+$('i').bind('click', function (e) {
+    open();
+});
+
 $("#cancel").bind('click', function (e) {
     cancel();
 });
@@ -73,8 +117,3 @@ $(document).bind('keypress', function (e) {
     
 });
 
-new TodoItem({
-    title: "Web design",
-    description:"create to do and modal with good design",
-    timestamp:'11:59 PM'
-}).show();
